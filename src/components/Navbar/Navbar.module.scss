@@ -1,0 +1,227 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.navbar {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+z-index: $z-navbar;
+height: $navbar-height;
+display: flex;
+align-items: center;
+background: rgba(255, 255, 255, 0.6);
+backdrop-filter: blur(14px);
+-webkit-backdrop-filter: blur(14px);
+border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+transition: background $transition-base, box-shadow $transition-base, border-color $transition-base;
+}
+
+.scrolled {
+background: rgba(255, 255, 255, 0.95);
+box-shadow: $shadow-md;
+border-bottom-color: $color-border;
+}
+
+.inner {
+@include container;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: $space-6;
+}
+
+.logo {
+display: flex;
+align-items: center;
+gap: $space-3;
+text-decoration: none;
+flex-shrink: 0;
+}
+
+.logoIcon {
+width: 42px;
+height: 42px;
+border-radius: $radius-md;
+background: linear-gradient(135deg, $color-primary 0%, $color-secondary 100%);
+color: $color-white;
+@include flex-center;
+box-shadow: $shadow-sm;
+}
+
+.logoText {
+font-family: $font-family-heading;
+font-size: 1.5rem;
+font-weight: $font-weight-bold;
+color: $color-primary;
+letter-spacing: -0.02em;
+}
+
+.logoAccent {
+color: $color-secondary;
+margin-left: 2px;
+}
+
+.desktopNav {
+flex: 1;
+display: flex;
+justify-content: center;
+
+@include max-lg { display: none; }
+}
+
+.navList {
+display: flex;
+gap: $space-8;
+align-items: center;
+}
+
+.navLink {
+position: relative;
+display: inline-block;
+font-size: $font-size-sm;
+font-weight: $font-weight-semibold;
+color: $color-text;
+letter-spacing: 0.04em;
+text-transform: uppercase;
+padding: $space-2 0;
+transition: color $transition-fast;
+
+&::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: $color-secondary;
+  transition: width $transition-base, left $transition-base;
+}
+
+&:hover, &.active {
+  color: $color-primary;
+  &::after { width: 100%; left: 0; }
+}
+
+&.active { color: $color-secondary; }
+}
+
+.actions {
+display: flex;
+align-items: center;
+gap: $space-4;
+flex-shrink: 0;
+}
+
+.callBtn {
+display: inline-flex;
+align-items: center;
+gap: $space-2;
+font-size: $font-size-sm;
+font-weight: $font-weight-semibold;
+color: $color-primary;
+padding: $space-2 0;
+
+@include max-md { display: none; }
+}
+
+.ctaBtn {
+display: inline-flex;
+align-items: center;
+gap: $space-2;
+padding: $space-3 $space-5;
+background: linear-gradient(135deg, $color-secondary 0%, $color-secondary-dark 100%);
+color: $color-white;
+font-size: $font-size-sm;
+font-weight: $font-weight-bold;
+border-radius: $radius-full;
+letter-spacing: 0.02em;
+box-shadow: $shadow-md;
+transition: transform $transition-base, box-shadow $transition-base;
+
+&:hover {
+  transform: translateY(-2px);
+  box-shadow: $shadow-lg;
+  color: $color-white;
+}
+
+@include max-md { display: none; }
+}
+
+.menuToggle {
+display: none;
+color: $color-primary;
+padding: $space-2;
+
+@include max-lg { display: inline-flex; }
+}
+
+.mobilePanel {
+position: fixed;
+top: $navbar-height;
+right: 0;
+bottom: 0;
+width: min(380px, 100%);
+background: $color-white;
+box-shadow: $shadow-xl;
+padding: $space-6;
+display: flex;
+flex-direction: column;
+overflow-y: auto;
+z-index: $z-navbar;
+}
+
+.mobileList {
+flex: 1;
+display: flex;
+flex-direction: column;
+gap: $space-1;
+}
+
+.mobileLink {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: $space-4 $space-3;
+font-size: $font-size-md;
+font-weight: $font-weight-semibold;
+color: $color-text;
+border-radius: $radius-md;
+transition: background $transition-fast, color $transition-fast;
+
+&:hover, &.active {
+  background: rgba(26, 188, 156, 0.08);
+  color: $color-secondary;
+}
+}
+
+.mobileFoot {
+display: flex;
+flex-direction: column;
+gap: $space-3;
+padding-top: $space-6;
+margin-top: $space-6;
+border-top: 1px solid $color-border;
+}
+
+.mobileCall {
+display: inline-flex;
+align-items: center;
+gap: $space-2;
+padding: $space-3 $space-4;
+font-weight: $font-weight-semibold;
+color: $color-primary;
+}
+
+.mobileCta {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+padding: $space-4;
+background: linear-gradient(135deg, $color-secondary 0%, $color-secondary-dark 100%);
+color: $color-white;
+font-weight: $font-weight-bold;
+border-radius: $radius-full;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+}
