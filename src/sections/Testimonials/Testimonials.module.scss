@@ -1,0 +1,167 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.section {
+position: relative;
+padding: $space-20 0;
+background: linear-gradient(135deg, $color-primary 0%, lighten($color-primary, 8%) 100%);
+overflow: hidden;
+color: $color-white;
+}
+
+.bgPattern {
+position: absolute;
+inset: 0;
+background-image:
+  radial-gradient(circle at 10% 20%, rgba(26, 188, 156, 0.15) 0%, transparent 40%),
+  radial-gradient(circle at 90% 80%, rgba(26, 188, 156, 0.1) 0%, transparent 40%);
+pointer-events: none;
+}
+
+.inner {
+@include container;
+position: relative;
+}
+
+.carousel {
+display: grid;
+grid-template-columns: auto 1fr auto;
+align-items: center;
+gap: $space-6;
+max-width: 880px;
+margin: 0 auto;
+
+@include max-md {
+  grid-template-columns: 1fr;
+  gap: $space-4;
+}
+}
+
+.navBtn {
+width: 52px;
+height: 52px;
+border-radius: $radius-full;
+background: rgba(255, 255, 255, 0.1);
+color: $color-white;
+border: 1px solid rgba(255, 255, 255, 0.2);
+cursor: pointer;
+@include flex-center;
+transition: background $transition-base, transform $transition-base;
+backdrop-filter: blur(8px);
+
+&:hover {
+  background: $color-secondary;
+  border-color: $color-secondary;
+  transform: scale(1.08);
+}
+
+@include max-md {
+  width: 44px;
+  height: 44px;
+}
+}
+
+.prev { justify-self: end; }
+.next { justify-self: start; }
+
+@include max-md {
+.prev, .next { justify-self: center; }
+}
+
+.viewport {
+position: relative;
+min-height: 360px;
+display: flex;
+align-items: stretch;
+}
+
+.card {
+position: relative;
+width: 100%;
+background: rgba(255, 255, 255, 0.08);
+backdrop-filter: blur(16px);
+border: 1px solid rgba(255, 255, 255, 0.15);
+border-radius: $radius-xl;
+padding: $space-10 $space-8;
+display: flex;
+flex-direction: column;
+gap: $space-5;
+margin: 0;
+}
+
+.quoteMark {
+position: absolute;
+top: $space-6;
+right: $space-6;
+color: $color-secondary;
+opacity: 0.4;
+}
+
+.stars {
+display: inline-flex;
+gap: 2px;
+color: #ffb800;
+}
+
+.quote {
+font-size: clamp($font-size-md, 1.5vw, $font-size-lg);
+line-height: 1.7;
+color: $color-white;
+margin: 0;
+font-weight: $font-weight-medium;
+font-style: italic;
+}
+
+.author {
+display: flex;
+align-items: center;
+gap: $space-4;
+margin: 0;
+padding-top: $space-4;
+border-top: 1px solid rgba(255, 255, 255, 0.15);
+
+img {
+  width: 56px;
+  height: 56px;
+  border-radius: $radius-full;
+  object-fit: cover;
+  border: 2px solid $color-secondary;
+}
+
+strong {
+  display: block;
+  font-size: $font-size-md;
+  color: $color-white;
+  font-weight: $font-weight-bold;
+}
+
+span {
+  display: block;
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: normal;
+}
+}
+
+.dots {
+display: flex;
+justify-content: center;
+gap: $space-2;
+margin-top: $space-8;
+}
+
+.dot {
+width: 10px;
+height: 10px;
+border-radius: $radius-full;
+background: rgba(255, 255, 255, 0.25);
+border: none;
+cursor: pointer;
+padding: 0;
+transition: background $transition-base, transform $transition-base, width $transition-base;
+}
+
+.dotActive {
+width: 32px;
+background: $color-secondary;
+}
