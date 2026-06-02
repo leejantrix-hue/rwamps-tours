@@ -1,0 +1,67 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.section {
+padding: $space-20 0;
+background: $color-bg-light;
+position: relative;
+}
+
+.inner {
+@include container;
+}
+
+.filters {
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+gap: $space-2;
+margin-bottom: $space-10;
+}
+
+.filterBtn {
+display: inline-flex;
+align-items: center;
+gap: $space-1;
+padding: $space-2 $space-5;
+background: $color-white;
+color: $color-text;
+font-size: $font-size-sm;
+font-weight: $font-weight-semibold;
+border-radius: $radius-full;
+border: 1px solid $color-border;
+cursor: pointer;
+transition: all $transition-base;
+
+&:hover {
+  background: rgba(26, 188, 156, 0.08);
+  color: $color-secondary-dark;
+  border-color: $color-secondary;
+}
+
+&.active {
+  background: linear-gradient(135deg, $color-secondary 0%, $color-secondary-dark 100%);
+  color: $color-white;
+  border-color: transparent;
+  box-shadow: $shadow-md;
+}
+}
+
+.grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: $space-6;
+}
+
+.empty {
+text-align: center;
+padding: $space-10;
+color: $color-text-muted;
+font-size: $font-size-md;
+}
+
+.ctaWrap {
+display: flex;
+justify-content: center;
+margin-top: $space-12;
+}
