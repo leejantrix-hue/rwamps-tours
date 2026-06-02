@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom'
 import MainLayout from './layouts/MainLayout/MainLayout.jsx'
-import Home from './pages/Home/Home.jsx'
-import About from './pages/About/About.jsx'
-import Services from './pages/Services/Services.jsx'
-import Tours from './pages/Tours/Tours.jsx'
-import TourDetail from './pages/TourDetail/TourDetail.jsx'
-import Contact from './pages/Contact/Contact.jsx'
-import FAQs from './pages/FAQs/FAQs.jsx'
-import NotFound from './pages/NotFound/NotFound.jsx'
+import HomePage from './pages/HomePage.jsx'
+import AboutPage from './pages/AboutPage.jsx'
+import ServicesPage from './pages/ServicesPage.jsx'
+import ToursPage from './pages/ToursPage.jsx'
+import TourDetailPage from './pages/TourDetailPage.jsx'
+import ContactPage from './pages/ContactPage.jsx'
+import FAQsPage from './pages/FAQsPage.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
 import ScrollToTop from './components/ScrollToTop/ScrollToTop.jsx'
 
 function App() {
@@ -16,14 +16,14 @@ return (
     <ScrollToTop />
     <Routes>
       <Route path="/" element={<MainLayout />}>
-        <Route index element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="services" element={<Services />} />
-        <Route path="tours" element={<Tours />} />
-        <Route path="tours/:id" element={<TourDetail />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="faqs" element={<FAQs />} />
-        <Route path="*" element={<NotFound />} />
+        <Route index element={<HomePage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="services" element={<ServicesPage />} />
+        <Route path="tours" element={<ToursPage />} />
+        <Route path="tours/:id" element={<TourDetailPage />} />
+        <Route path="contact" element={<ContactPage />} />
+        <Route path="faqs" element={<FAQsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   </>
