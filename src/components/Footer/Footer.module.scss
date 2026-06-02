@@ -1,0 +1,211 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.footer {
+background: linear-gradient(180deg, $color-bg-dark 0%, darken($color-bg-dark, 4%) 100%);
+color: rgba(255, 255, 255, 0.85);
+margin-top: $space-20;
+}
+
+.top { padding: $space-16 0 $space-12; }
+
+.inner {
+@include container;
+display: grid;
+grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+gap: $space-10;
+
+@include max-lg {
+  grid-template-columns: 1fr 1fr;
+  gap: $space-8;
+}
+@include max-md {
+  grid-template-columns: 1fr;
+}
+}
+
+.brandCol {
+display: flex;
+flex-direction: column;
+gap: $space-4;
+}
+
+.logo { display: flex; align-items: center; gap: $space-3; }
+.logoIcon {
+width: 42px; height: 42px;
+border-radius: $radius-md;
+background: linear-gradient(135deg, $color-secondary 0%, $color-secondary-dark 100%);
+color: $color-white;
+@include flex-center;
+}
+.logoText {
+font-family: $font-family-heading;
+font-size: 1.5rem;
+font-weight: $font-weight-bold;
+color: $color-white;
+}
+.logoAccent { color: $color-secondary; margin-left: 2px; }
+
+.tagline {
+font-size: $font-size-sm;
+line-height: 1.7;
+color: rgba(255, 255, 255, 0.7);
+max-width: 360px;
+}
+
+.socials {
+display: flex;
+gap: $space-3;
+margin-top: $space-2;
+
+a {
+  width: 38px; height: 38px;
+  border-radius: $radius-full;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+  @include flex-center;
+  transition: background $transition-fast, color $transition-fast, transform $transition-fast;
+
+  &:hover {
+    background: $color-secondary;
+    color: $color-white;
+    transform: translateY(-2px);
+  }
+}
+}
+
+.col {
+display: flex;
+flex-direction: column;
+gap: $space-4;
+}
+
+.colTitle {
+color: $color-white;
+font-size: $font-size-md;
+font-weight: $font-weight-bold;
+margin-bottom: $space-2;
+position: relative;
+padding-bottom: $space-3;
+
+&::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 40px; height: 3px;
+  background: $color-secondary;
+  border-radius: $radius-full;
+}
+}
+
+.linkList {
+display: flex;
+flex-direction: column;
+gap: $space-2;
+
+a {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: $font-size-sm;
+  padding: $space-1 0;
+
+  svg { color: $color-secondary; flex-shrink: 0; }
+
+  &:hover {
+    color: $color-white;
+    transform: translateX(3px);
+  }
+}
+}
+
+.contactList {
+display: flex;
+flex-direction: column;
+gap: $space-3;
+font-size: $font-size-sm;
+
+li {
+  display: flex;
+  gap: $space-3;
+  align-items: flex-start;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+a {
+  color: inherit;
+  &:hover { color: $color-secondary; }
+}
+}
+
+.iconWrap {
+width: 32px; height: 32px;
+border-radius: $radius-md;
+background: rgba(26, 188, 156, 0.15);
+color: $color-secondary;
+@include flex-center;
+flex-shrink: 0;
+}
+
+.subscribe {
+display: flex;
+margin-top: $space-3;
+height: 46px;
+border-radius: $radius-full;
+background: rgba(255, 255, 255, 0.08);
+overflow: hidden;
+
+input {
+  flex: 1;
+  padding: 0 $space-4;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: $color-white;
+  font-size: $font-size-sm;
+
+  &::placeholder { color: rgba(255, 255, 255, 0.5); }
+}
+
+button {
+  width: 46px;
+  background: $color-secondary;
+  color: $color-white;
+  @include flex-center;
+  transition: background $transition-fast;
+
+  &:hover { background: $color-secondary-dark; }
+}
+}
+
+.bottom {
+border-top: 1px solid rgba(255, 255, 255, 0.08);
+padding: $space-5 0;
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+
+  @include max-md { flex-direction: column; text-align: center; }
+}
+
+p {
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+}
+
+.legal {
+display: flex;
+gap: $space-6;
+font-size: $font-size-sm;
+
+a {
+  color: rgba(255, 255, 255, 0.6);
+  &:hover { color: $color-secondary; }
+}
+}
