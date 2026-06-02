@@ -1,0 +1,176 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.hero {
+position: relative;
+padding: $space-20 0 $space-16;
+background:
+  linear-gradient(135deg, rgba(15, 32, 67, 0.85) 0%, rgba(15, 32, 67, 0.75) 100%),
+  url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+color: $color-white;
+}
+
+.heroInner {
+@include container;
+}
+
+.heroContent {
+max-width: 720px;
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: $font-weight-extrabold;
+  line-height: 1.15;
+  margin: $space-3 0 $space-5;
+  color: $color-white;
+}
+
+p {
+  font-size: $font-size-md;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  max-width: 640px;
+}
+}
+
+.eyebrow {
+display: inline-block;
+padding: $space-1 $space-3;
+background: rgba(26, 188, 156, 0.2);
+color: $color-secondary;
+font-size: $font-size-xs;
+font-weight: $font-weight-bold;
+text-transform: uppercase;
+letter-spacing: 0.12em;
+border-radius: $radius-full;
+border: 1px solid rgba(26, 188, 156, 0.3);
+}
+
+.statsSection {
+padding: $space-12 0;
+background: $color-white;
+}
+
+.statsInner {
+@include container;
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: $space-6;
+
+@include max-md { grid-template-columns: repeat(2, 1fr); }
+}
+
+.stat {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+gap: $space-2;
+padding: $space-6 $space-4;
+background: $color-bg-light;
+border-radius: $radius-xl;
+border: 1px solid $color-border;
+
+strong {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: $font-weight-extrabold;
+  color: $color-primary;
+  line-height: 1;
+}
+
+span {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  font-weight: $font-weight-semibold;
+}
+}
+
+.statIcon { color: $color-secondary; }
+
+.storySection {
+padding: $space-20 0;
+background: $color-bg-light;
+}
+
+.storyInner {
+@include container;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: $space-10;
+align-items: center;
+
+@include max-lg { grid-template-columns: 1fr; }
+}
+
+.storyText {
+p {
+  font-size: $font-size-md;
+  line-height: 1.8;
+  color: $color-text;
+  margin: 0 0 $space-4;
+}
+}
+
+.storyImg {
+border-radius: $radius-xl;
+overflow: hidden;
+box-shadow: $shadow-xl;
+aspect-ratio: 4 / 5;
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+}
+
+.valuesSection {
+padding: $space-20 0;
+background: $color-white;
+}
+
+.valuesInner {
+@include container;
+}
+
+.valuesGrid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+gap: $space-6;
+}
+
+.valueCard {
+padding: $space-8;
+background: $color-bg-light;
+border-radius: $radius-xl;
+border: 1px solid $color-border;
+transition: box-shadow $transition-base, transform $transition-base;
+
+&:hover {
+  box-shadow: $shadow-lg;
+  transform: translateY(-4px);
+}
+
+h3 {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  margin: $space-4 0 $space-2;
+}
+
+p {
+  font-size: $font-size-sm;
+  line-height: 1.7;
+  color: $color-text-muted;
+  margin: 0;
+}
+}
+
+.valueIcon {
+color: $color-secondary;
+padding: 12px;
+background: rgba(26, 188, 156, 0.12);
+border-radius: $radius-lg;
+box-sizing: content-box;
+}
