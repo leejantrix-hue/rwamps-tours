@@ -1,0 +1,45 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.pageHero {
+position: relative;
+padding: $space-20 0 $space-16;
+background:
+  linear-gradient(135deg, rgba(15, 32, 67, 0.88) 0%, rgba(15, 32, 67, 0.7) 100%),
+  url('https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+color: $color-white;
+}
+
+.inner {
+@include container;
+max-width: 880px;
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: $font-weight-extrabold;
+  line-height: 1.15;
+  margin: $space-3 0 $space-5;
+  color: $color-white;
+}
+
+p {
+  font-size: $font-size-md;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  max-width: 680px;
+}
+}
+
+.eyebrow {
+display: inline-block;
+padding: $space-1 $space-3;
+background: rgba(26, 188, 156, 0.2);
+color: $color-secondary;
+font-size: $font-size-xs;
+font-weight: $font-weight-bold;
+text-transform: uppercase;
+letter-spacing: 0.12em;
+border-radius: $radius-full;
+border: 1px solid rgba(26, 188, 156, 0.3);
+}
