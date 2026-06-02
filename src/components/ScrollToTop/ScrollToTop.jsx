@@ -2,14 +2,16 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 /**
-* Scrolls window to top on every route change.
-* Mount once near the top of the tree (inside the Router).
+* Scrolls to top of page on every route change.
+* Place inside <BrowserRouter> but renders nothing.
 */
 function ScrollToTop() {
  const { pathname } = useLocation()
+
  useEffect(() => {
-   window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+   window.scrollTo({ top: 0, left: 0, behavior: 'instant' in window ? 'instant' : 'auto' })
  }, [pathname])
+
  return null
 }
 
