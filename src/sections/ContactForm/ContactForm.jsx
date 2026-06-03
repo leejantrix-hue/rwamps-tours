@@ -1,183 +1,143 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle2 } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, User, Globe2, MessageSquare, Tag } from 'lucide-react'
 import SectionHeading from '../../components/SectionHeading/SectionHeading.jsx'
-import { contactInfo } from '../../data/site.js'
+import { company } from '../../data/site.js'
 import styles from './ContactForm.module.scss'
 
-const INITIAL = { name: '', email: '', phone: '', destination: '', message: '' }
+const SUBJECTS = ['Tour Inquiry', 'Custom Package', 'Group Booking', 'Visa Assistance', 'Other']
 
-function ContactForm() {
-const [form, setForm] = useState(INITIAL)
-const [errors, setErrors] = useState({})
-const [status, setStatus] = useState('idle') // idle | submitting | success | error
+function ContactForm({ compact = false }) {
+const [form, setForm] = useState({
+  name: '', email: '', phone: '', country: '', subject: SUBJECTS[0], message: ''
+})
+const [sent, setSent] = useState(false)
+const [submitting, setSubmitting] = useState(false)
 
-const onChange = (e) => {
-  const { name, value } = e.target
-  setForm(f => ({ ...f, [name]: value }))
-  if (errors[name]) setErrors(p => ({ ...p, [name]: undefined }))
-}
+const update = (key) => (e) => setForm(prev => ({ ...prev, [key]: e.target.value }))
 
-const validate = () => {
-  const next = {}
-  if (!form.name.trim()) next.name = 'Please tell us your name'
-  if (!form.email.trim()) next.email = 'Email is required'
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = 'Please enter a valid email'
-  if (!form.message.trim() || form.message.trim().length < 10) next.message = 'Message must be at least 10 characters'
-  setErrors(next)
-  return Object.keys(next).length === 0
-}
-
-const onSubmit = async (e) => {
+const submit = async (e) => {
   e.preventDefault()
-  if (!validate()) return
-  setStatus('submitting')
-  // Placeholder submit — wire up to backend / form service later
+  setSubmitting(true)
+  // Simulate async send. In production replace with real endpoint or Formspree/EmailJS.
   await new Promise(r => setTimeout(r, 900))
-  setStatus('success')
-  setForm(INITIAL)
-  setTimeout(() => setStatus('idle'), 5000)
+  setSubmitting(false)
+  setSent(true)
+  setForm({ name: '', email: '', phone: '', country: '', subject: SUBJECTS[0], message: '' })
+  setTimeout(() => setSent(false), 5000)
 }
 
 return (
-  <section className={styles.section} id="contact">
+  <section className={`${styles.section} ${compact ? styles.compact : ''}`} id="contact">
     <div className={styles.inner}>
-      <SectionHeading
-        eyebrow="Let's Talk"
-        title="Plan Your Next Adventure"
-        subtitle="Tell us where you want to go and we'll craft the perfect itinerary. We typically reply within an hour during business days."
-      />
+      {!compact && (
+        <SectionHeading
+          eyebrow="Get in Touch"
+          title="Let's Plan Your Arabian Journey"
+          subtitle="Tell us where you'd like to go and what you'd like to experience. Our team will craft the perfect itinerary, just for you."
+        />
+      )}
 
       <div className={styles.layout}>
         <motion.aside
-          initial={{ opacity: 0, x: -30 }}
+          initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className={styles.aside}
+          className={styles.info}
         >
-          <h3>Get in touch directly</h3>
-          <ul className={styles.contactList}>
+          <h3>Contact Information</h3>
+          <p>Reach out anytime. Our travel experts respond within 2 hours during business hours.</p>
+
+          <ul className={styles.infoList}>
             <li>
-              <div className={styles.iconBox}><Mail size={20} /></div>
+              <span className={styles.infoIcon}><MapPin size={18} /></span>
               <div>
-                <span>Email</span>
-                <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
+                <strong>Office</strong>
+                <p>{company.address}</p>
               </div>
             </li>
             <li>
-              <div className={styles.iconBox}><Phone size={20} /></div>
+              <span className={styles.infoIcon}><Phone size={18} /></span>
               <div>
-                <span>Phone</span>
-                <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}>{contactInfo.phone}</a>
+                <strong>Phone</strong>
+                <p><a href={`tel:${company.phone.replace(/\s/g, '')}`}>{company.phone}</a></p>
               </div>
             </li>
             <li>
-              <div className={styles.iconBox}><MapPin size={20} /></div>
+              <span className={styles.infoIcon}><Mail size={18} /></span>
               <div>
-                <span>Office</span>
-                <p>{contactInfo.address}</p>
+                <strong>Email</strong>
+                <p><a href={`mailto:${company.email}`}>{company.email}</a></p>
               </div>
             </li>
             <li>
-              <div className={styles.iconBox}><Clock size={20} /></div>
+              <span className={styles.infoIcon}><Clock size={18} /></span>
               <div>
-                <span>Hours</span>
-                <p>{contactInfo.hours}</p>
+                <strong>Hours</strong>
+                <p>{company.hours}</p>
               </div>
             </li>
           </ul>
         </motion.aside>
 
         <motion.form
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          onSubmit={submit}
           className={styles.form}
-          onSubmit={onSubmit}
           noValidate
         >
           <div className={styles.row}>
-            <label className={`${styles.field} ${errors.name ? styles.fieldError : ''}`}>
-              <span>Full name *</span>
-              <input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={onChange}
-                placeholder="Your name"
-                autoComplete="name"
-              />
-              {errors.name && <em>{errors.name}</em>}
+            <label className={styles.field}>
+              <span><User size={14} /> Full Name</span>
+              <input type="text" value={form.name} onChange={update('name')} required placeholder="John Smith" />
             </label>
-            <label className={`${styles.field} ${errors.email ? styles.fieldError : ''}`}>
-              <span>Email *</span>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={onChange}
-                placeholder="you@example.com"
-                autoComplete="email"
-              />
-              {errors.email && <em>{errors.email}</em>}
+            <label className={styles.field}>
+              <span><Mail size={14} /> Email</span>
+              <input type="email" value={form.email} onChange={update('email')} required placeholder="you@example.com" />
             </label>
           </div>
 
           <div className={styles.row}>
             <label className={styles.field}>
-              <span>Phone</span>
-              <input
-                type="tel"
-                name="phone"
-                value={form.phone}
-                onChange={onChange}
-                placeholder="+971 50 000 0000"
-                autoComplete="tel"
-              />
+              <span><Phone size={14} /> Phone</span>
+              <input type="tel" value={form.phone} onChange={update('phone')} placeholder="+971 50 000 0000" />
             </label>
             <label className={styles.field}>
-              <span>Preferred destination</span>
-              <select name="destination" value={form.destination} onChange={onChange}>
-                <option value="">Not sure yet</option>
-                <option>Dubai, UAE</option>
-                <option>Abu Dhabi, UAE</option>
-                <option>Muscat, Oman</option>
-                <option>Riyadh, Saudi Arabia</option>
-                <option>Doha, Qatar</option>
-                <option>Multi-country Gulf tour</option>
-              </select>
+              <span><Globe2 size={14} /> Country</span>
+              <input type="text" value={form.country} onChange={update('country')} placeholder="United Arab Emirates" />
             </label>
           </div>
 
-          <label className={`${styles.field} ${errors.message ? styles.fieldError : ''}`}>
-            <span>Tell us about your trip *</span>
-            <textarea
-              name="message"
-              rows="5"
-              value={form.message}
-              onChange={onChange}
-              placeholder="When are you traveling, how many people, what experiences are you most excited about..."
-            />
-            {errors.message && <em>{errors.message}</em>}
+          <label className={styles.field}>
+            <span><Tag size={14} /> Subject</span>
+            <select value={form.subject} onChange={update('subject')}>
+              {SUBJECTS.map(s => <option key={s}>{s}</option>)}
+            </select>
           </label>
 
-          <button
-            type="submit"
-            className={styles.submit}
-            disabled={status === 'submitting' || status === 'success'}
-          >
-            {status === 'submitting' && 'Sending...'}
-            {status === 'success' && (<><CheckCircle2 size={18} /> Message sent!</>)}
-            {(status === 'idle' || status === 'error') && (<>Send Message <Send size={18} /></>)}
-          </button>
+          <label className={styles.field}>
+            <span><MessageSquare size={14} /> Message</span>
+            <textarea rows={5} value={form.message} onChange={update('message')} required placeholder="Tell us about your dream trip..." />
+          </label>
 
-          {status === 'success' && (
-            <p className={styles.successNote}>
-              Thank you! We'll be in touch within an hour during business hours.
-            </p>
-          )}
+          <button type="submit" className={styles.submit} disabled={submitting || sent}>
+            {sent ? (
+              <>
+                <CheckCircle2 size={18} /> Message Sent
+              </>
+            ) : submitting ? (
+              <>Sending...</>
+            ) : (
+              <>
+                <Send size={18} /> Send Message
+              </>
+            )}
+          </button>
+          <p className={styles.note}>By submitting you agree to our privacy policy. We'll never share your details.</p>
         </motion.form>
       </div>
     </div>
