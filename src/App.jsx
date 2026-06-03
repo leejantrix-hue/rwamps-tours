@@ -1,33 +1,35 @@
-import { Routes, Route } from 'react-router-dom'
-import MainLayout from './layouts/MainLayout/MainLayout.jsx'
-import HomePage from './pages/HomePage.jsx'
-import AboutPage from './pages/AboutPage.jsx'
-import ServicesPage from './pages/ServicesPage.jsx'
-import ToursPage from './pages/ToursPage.jsx'
-import TourDetailPage from './pages/TourDetailPage.jsx'
-import ContactPage from './pages/ContactPage.jsx'
-import FAQsPage from './pages/FAQsPage.jsx'
-import NotFoundPage from './pages/NotFoundPage.jsx'
-import ScrollToTop from './components/ScrollToTop/ScrollToTop.jsx'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import ScrollToTop from './utils/ScrollToTop.jsx'
+import MainLayout from './layouts/MainLayout.jsx'
+import Home from './pages/Home/Home.jsx'
+import About from './pages/About/About.jsx'
+import Tours from './pages/Tours/Tours.jsx'
+import TourDetail from './pages/TourDetail/TourDetail.jsx'
+import ServicesPage from './pages/Services/Services.jsx'
+import DestinationsPage from './pages/Destinations/Destinations.jsx'
+import FAQsPage from './pages/FAQs/FAQs.jsx'
+import Contact from './pages/Contact/Contact.jsx'
+import NotFound from './pages/NotFound/NotFound.jsx'
 
 function App() {
-return (
-  <>
-    <ScrollToTop />
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="about" element={<AboutPage />} />
-        <Route path="services" element={<ServicesPage />} />
-        <Route path="tours" element={<ToursPage />} />
-        <Route path="tours/:id" element={<TourDetailPage />} />
-        <Route path="contact" element={<ContactPage />} />
-        <Route path="faqs" element={<FAQsPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
-  </>
-)
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/tours" element={<Tours />} />
+          <Route path="/tours/:slug" element={<TourDetail />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/destinations" element={<DestinationsPage />} />
+          <Route path="/faqs" element={<FAQsPage />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App
