@@ -1,0 +1,315 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.section {
+padding: $space-16 0;
+background: $color-bg-light;
+}
+
+.inner { @include container; }
+
+.layout {
+display: grid;
+grid-template-columns: 1fr 360px;
+gap: $space-8;
+align-items: start;
+
+@include max-lg { grid-template-columns: 1fr; }
+}
+
+.main {
+background: $color-white;
+border-radius: $radius-xl;
+padding: $space-8;
+box-shadow: $shadow-md;
+display: flex;
+flex-direction: column;
+gap: $space-5;
+
+@include max-sm { padding: $space-5; }
+
+h2 {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  margin: $space-4 0 $space-2;
+}
+
+p {
+  font-size: $font-size-md;
+  line-height: 1.8;
+  color: $color-text-muted;
+  margin: 0;
+}
+}
+
+.back {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+font-size: $font-size-sm;
+color: $color-text-muted;
+font-weight: $font-weight-semibold;
+width: fit-content;
+
+&:hover { color: $color-secondary; }
+}
+
+.hero {
+position: relative;
+border-radius: $radius-lg;
+overflow: hidden;
+
+img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  display: block;
+
+  @include max-sm { height: 240px; }
+}
+}
+
+.badge {
+position: absolute;
+top: $space-4;
+left: $space-4;
+padding: $space-1 $space-3;
+background: $color-secondary;
+color: $color-white;
+border-radius: $radius-full;
+font-size: $font-size-xs;
+font-weight: $font-weight-bold;
+text-transform: uppercase;
+letter-spacing: 0.08em;
+}
+
+.meta {
+display: flex;
+flex-wrap: wrap;
+gap: $space-4;
+padding: $space-3 0;
+border-bottom: 1px solid $color-border;
+
+span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  font-weight: $font-weight-semibold;
+
+  svg { color: $color-secondary; }
+}
+}
+
+.rating {
+color: #b8860b !important;
+svg { color: #ffb700 !important; }
+}
+
+.checks {
+list-style: none;
+padding: 0;
+margin: 0;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: $space-2 $space-4;
+
+@include max-sm { grid-template-columns: 1fr; }
+
+li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: $font-size-sm;
+  line-height: 1.6;
+  color: $color-text;
+
+  svg {
+    flex-shrink: 0;
+    color: $color-white;
+    background: $color-secondary;
+    border-radius: 50%;
+    padding: 2px;
+    margin-top: 3px;
+  }
+}
+}
+
+.itinerary {
+display: flex;
+flex-direction: column;
+gap: $space-3;
+}
+
+.itDay {
+display: flex;
+align-items: flex-start;
+gap: $space-4;
+padding: $space-4;
+background: $color-bg-light;
+border-radius: $radius-md;
+border-left: 3px solid $color-secondary;
+
+strong {
+  display: block;
+  font-size: $font-size-md;
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  margin-bottom: 4px;
+}
+
+p {
+  font-size: $font-size-sm;
+  line-height: 1.6;
+  color: $color-text-muted;
+  margin: 0;
+}
+}
+
+.itBadge {
+background: $color-primary;
+color: $color-white;
+padding: $space-1 $space-3;
+border-radius: $radius-sm;
+font-size: $font-size-xs;
+font-weight: $font-weight-bold;
+letter-spacing: 0.05em;
+flex-shrink: 0;
+white-space: nowrap;
+}
+
+.sidebar {
+position: sticky;
+top: 100px;
+
+@include max-lg { position: static; }
+}
+
+.bookCard {
+background: $color-white;
+border-radius: $radius-xl;
+padding: $space-6;
+box-shadow: $shadow-lg;
+display: flex;
+flex-direction: column;
+gap: $space-4;
+border-top: 4px solid $color-secondary;
+}
+
+.priceBlock {
+display: flex;
+flex-direction: column;
+gap: 2px;
+padding-bottom: $space-4;
+border-bottom: 1px solid $color-border;
+
+span {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: $font-weight-semibold;
+}
+
+strong {
+  font-size: $font-size-3xl;
+  color: $color-primary;
+  font-weight: $font-weight-extrabold;
+  line-height: 1;
+}
+
+small {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin-top: 2px;
+}
+}
+
+.bookList {
+list-style: none;
+padding: 0;
+margin: 0;
+display: flex;
+flex-direction: column;
+gap: $space-2;
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: $font-size-sm;
+  color: $color-text;
+
+  svg { color: $color-secondary; }
+}
+}
+
+.bookLink {
+text-align: center;
+font-size: $font-size-xs;
+color: $color-text-muted;
+text-decoration: underline;
+
+&:hover { color: $color-secondary; }
+}
+
+.related {
+margin-top: $space-12;
+
+h3 {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  margin: 0 0 $space-5;
+}
+}
+
+.relatedGrid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: $space-4;
+
+@include max-md { grid-template-columns: 1fr; }
+}
+
+.relCard {
+background: $color-white;
+border-radius: $radius-lg;
+overflow: hidden;
+box-shadow: $shadow-sm;
+transition: transform $transition-fast, box-shadow $transition-fast;
+
+&:hover {
+  transform: translateY(-4px);
+  box-shadow: $shadow-md;
+}
+
+img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+> div {
+  padding: $space-3 $space-4;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+strong {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  line-height: 1.3;
+}
+
+span {
+  font-size: $font-size-xs;
+  color: $color-secondary-dark;
+  font-weight: $font-weight-bold;
+}
+}
