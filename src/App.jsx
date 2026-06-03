@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import ScrollToTop from './helpers/ScrollToTop.jsx'
 import MainLayout from './layouts/MainLayout/MainLayout.jsx'
 import Home from './pages/Home/Home.jsx'
@@ -13,7 +13,7 @@ import NotFound from './pages/NotFound/NotFound.jsx'
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
@@ -28,7 +28,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </>
   )
 }
 
