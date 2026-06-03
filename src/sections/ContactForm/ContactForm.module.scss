@@ -6,81 +6,101 @@ padding: $space-20 0;
 background: $color-bg-light;
 }
 
-.inner {
-@include container;
-}
+.compact { padding: $space-12 0; }
+
+.inner { @include container; }
 
 .layout {
 display: grid;
 grid-template-columns: 380px 1fr;
-gap: $space-10;
+gap: $space-8;
 align-items: start;
 
-@include max-lg { grid-template-columns: 1fr; }
+@include max-lg {
+  grid-template-columns: 1fr;
+  gap: $space-6;
+}
 }
 
-.aside {
-background: linear-gradient(135deg, $color-primary 0%, lighten($color-primary, 8%) 100%);
+.info {
+background: linear-gradient(160deg, $color-primary 0%, darken($color-primary, 8%) 100%);
 color: $color-white;
 padding: $space-8;
 border-radius: $radius-xl;
-box-shadow: $shadow-lg;
-
-h3 {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-  margin: 0 0 $space-6;
-}
-}
-
-.contactList {
 display: flex;
 flex-direction: column;
 gap: $space-5;
-list-style: none;
-padding: 0;
-margin: 0;
+box-shadow: $shadow-lg;
+position: relative;
+overflow: hidden;
+
+&::after {
+  content: '';
+  position: absolute;
+  right: -60px; bottom: -60px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26, 188, 156, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+h3 {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  margin: 0;
+  position: relative;
+}
+
+> p {
+  font-size: $font-size-sm;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  position: relative;
+}
+}
+
+.infoList {
+display: flex;
+flex-direction: column;
+gap: $space-4;
+margin-top: $space-2;
+position: relative;
 
 li {
   display: flex;
-  gap: $space-3;
   align-items: flex-start;
+  gap: $space-3;
 }
 
-span {
+strong {
   display: block;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.55);
+  font-size: $font-size-xs;
   font-weight: $font-weight-bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $color-secondary;
   margin-bottom: 2px;
 }
 
-a {
-  color: $color-white;
-  font-weight: $font-weight-semibold;
-  font-size: $font-size-sm;
-
-  &:hover { color: $color-secondary; }
-}
-
 p {
-  color: $color-white;
   font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.95);
   margin: 0;
   line-height: 1.5;
 }
+
+a { color: inherit; &:hover { color: $color-secondary; } }
 }
 
-.iconBox {
-flex-shrink: 0;
-width: 44px;
-height: 44px;
-border-radius: $radius-lg;
-background: rgba(26, 188, 156, 0.2);
+.infoIcon {
+width: 40px;
+height: 40px;
+border-radius: $radius-md;
+background: rgba(26, 188, 156, 0.18);
 color: $color-secondary;
 @include flex-center;
+flex-shrink: 0;
 }
 
 .form {
@@ -91,64 +111,57 @@ box-shadow: $shadow-md;
 display: flex;
 flex-direction: column;
 gap: $space-5;
+
+@include max-sm { padding: $space-5; }
 }
 
 .row {
 display: grid;
 grid-template-columns: 1fr 1fr;
-gap: $space-5;
+gap: $space-4;
 
-@include max-md { grid-template-columns: 1fr; }
+@include max-sm { grid-template-columns: 1fr; }
 }
 
 .field {
 display: flex;
 flex-direction: column;
-gap: $space-1;
+gap: $space-2;
 
 > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: $font-size-xs;
   font-weight: $font-weight-bold;
-  color: $color-text;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: $color-text-muted;
+
+  svg { color: $color-secondary; }
 }
 
 input, select, textarea {
   width: 100%;
   padding: $space-3 $space-4;
-  border: 1px solid $color-border;
-  background: $color-bg-light;
+  border: 1.5px solid $color-border;
   border-radius: $radius-md;
   font-size: $font-size-sm;
   font-family: inherit;
   color: $color-text;
-  transition: border-color $transition-base, background $transition-base, box-shadow $transition-base;
+  background: $color-white;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
 
   &:focus {
     outline: none;
     border-color: $color-secondary;
-    background: $color-white;
     box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.15);
   }
-
-  &::placeholder { color: lighten($color-text-muted, 15%); }
 }
 
-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
-
-em {
-  font-style: normal;
-  font-size: $font-size-xs;
-  color: #d4351c;
-  font-weight: $font-weight-semibold;
-}
-}
-
-.fieldError {
-input, select, textarea {
-  border-color: #d4351c;
-  background: rgba(212, 53, 28, 0.04);
+textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 }
 
@@ -157,14 +170,13 @@ display: inline-flex;
 align-items: center;
 justify-content: center;
 gap: $space-2;
-margin-top: $space-2;
 padding: $space-4 $space-6;
 background: linear-gradient(135deg, $color-secondary 0%, $color-secondary-dark 100%);
 color: $color-white;
-font-size: $font-size-sm;
 font-weight: $font-weight-bold;
-letter-spacing: 0.08em;
+letter-spacing: 0.05em;
 text-transform: uppercase;
+font-size: $font-size-sm;
 border: none;
 border-radius: $radius-md;
 cursor: pointer;
@@ -181,13 +193,9 @@ transition: transform $transition-base, box-shadow $transition-base, opacity $tr
 }
 }
 
-.successNote {
+.note {
+text-align: center;
+font-size: $font-size-xs;
+color: $color-text-muted;
 margin: 0;
-padding: $space-3 $space-4;
-background: rgba(26, 188, 156, 0.1);
-color: $color-secondary-dark;
-font-size: $font-size-sm;
-font-weight: $font-weight-semibold;
-border-radius: $radius-md;
-border-left: 3px solid $color-secondary;
 }
