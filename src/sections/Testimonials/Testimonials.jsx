@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Quote, Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react'
 import SectionHeading from '../../components/SectionHeading/SectionHeading.jsx'
 import { testimonials } from '../../data/site.js'
 import styles from './Testimonials.module.scss'
@@ -11,93 +11,95 @@ function Testimonials() {
 const [index, setIndex] = useState(0)
 const [paused, setPaused] = useState(false)
 
-const goTo = useCallback((i) => {
-  setIndex(((i % testimonials.length) + testimonials.length) % testimonials.length)
+const go = useCallback((dir) => {
+  setIndex(i => (i + dir + testimonials.length) % testimonials.length)
 }, [])
 
-const next = useCallback(() => goTo(index + 1), [goTo, index])
-const prev = useCallback(() => goTo(index - 1), [goTo, index])
-
 useEffect(() => {
-  if (paused) return
-  const id = setInterval(next, AUTOPLAY_MS)
+  if (paused) return undefined
+  const id = setInterval(() => go(1), AUTOPLAY_MS)
   return () => clearInterval(id)
-}, [next, paused])
+}, [go, paused])
 
-const t = testimonials[index]
+const active = testimonials[index]
 
 return (
-  <section className={styles.section}>
-    <div className={styles.bgPattern} aria-hidden="true" />
+  <section className={styles.section} id="testimonials">
     <div className={styles.inner}>
       <SectionHeading
-        eyebrow="Real Stories"
-        title="What Our Travelers Say"
-        subtitle="5,000+ happy travelers across the Gulf. Here's what they say about their Rwamps Tours experience."
-        light
+        eyebrow="Traveler Stories"
+        title="Loved by Travelers from Around the World"
+        subtitle="Real stories from real travelers. Every journey is a story we're honored to be part of."
       />
 
       <div
-        className={styles.carousel}
+        className={styles.stage}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
         <button
           type="button"
-          onClick={prev}
+          className={`${styles.nav} ${styles.navPrev}`}
+          onClick={() => go(-1)}
           aria-label="Previous testimonial"
-          className={`${styles.navBtn} ${styles.prev}`}
         >
-          <ChevronLeft size={22} />
+          <ChevronLeft size={20} />
         </button>
 
-        <div className={styles.viewport}>
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.figure
-              key={t.id}
+        <div className={styles.cardWrap}>
+          <AnimatePresence mode="wait">
+            <motion.article
+              key={active.id}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
               className={styles.card}
             >
-              <Quote className={styles.quoteMark} size={48} />
-              <div className={styles.stars}>
-                {Array.from({ length: t.rating || 5 }).map((_, i) => (
-                  <Star key={i} size={18} fill="currentColor" />
+              <Quote size={48} className={styles.quoteIcon} aria-hidden="true" />
+
+              <div className={styles.stars} aria-label={`${active.rating} out of 5 stars`}>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    size={18}
+                    fill={i < active.rating ? 'currentColor' : 'none'}
+                  />
                 ))}
               </div>
-              <blockquote className={styles.quote}>"{t.quote}"</blockquote>
-              <figcaption className={styles.author}>
-                <img src={t.avatar} alt={t.name} loading="lazy" />
+
+              <p className={styles.quote}>&ldquo;{active.quote}&rdquo;</p>
+
+              <div className={styles.author}>
+                <img src={active.avatar} alt={active.name} loading="lazy" />
                 <div>
-                  <strong>{t.name}</strong>
-                  <span>{t.title || t.location}</span>
+                  <strong>{active.name}</strong>
+                  <span>{active.role} · {active.country}</span>
                 </div>
-              </figcaption>
-            </motion.figure>
+              </div>
+            </motion.article>
           </AnimatePresence>
         </div>
 
         <button
           type="button"
-          onClick={next}
+          className={`${styles.nav} ${styles.navNext}`}
+          onClick={() => go(1)}
           aria-label="Next testimonial"
-          className={`${styles.navBtn} ${styles.next}`}
         >
-          <ChevronRight size={22} />
+          <ChevronRight size={20} />
         </button>
       </div>
 
-      <div className={styles.dots} role="tablist">
-        {testimonials.map((tt, i) => (
+      <div className={styles.dots} role="tablist" aria-label="Testimonial pagination">
+        {testimonials.map((t, i) => (
           <button
-            key={tt.id}
+            key={t.id}
             type="button"
             role="tab"
             aria-selected={i === index}
             aria-label={`Go to testimonial ${i + 1}`}
-            onClick={() => goTo(i)}
+            onClick={() => setIndex(i)}
             className={`${styles.dot} ${i === index ? styles.dotActive : ''}`}
           />
         ))}
