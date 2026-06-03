@@ -1,13 +1,18 @@
 import { motion } from 'framer-motion'
-import { Award, Users, Globe2, Heart, Target, Eye } from 'lucide-react'
+import { Award, Users, Globe2, Headphones, Target, Eye } from 'lucide-react'
 import PageHeader from '../../components/PageHeader/PageHeader.jsx'
 import SectionHeading from '../../components/SectionHeading/SectionHeading.jsx'
 import Testimonials from '../../sections/Testimonials/Testimonials.jsx'
 import ContactForm from '../../sections/ContactForm/ContactForm.jsx'
-import { company, stats } from '../../data/site.js'
+import { companyInfo as company, stats } from '../../data/site.js'
 import styles from './About.module.scss'
 
-const ICONS = { Award, Users, Globe2, Heart }
+const STAT_ITEMS = [
+{ icon: Award, value: `${stats.customerSatisfaction}%`, label: 'Customer Satisfaction' },
+{ icon: Users, value: stats.happyTravelers, label: 'Happy Travelers' },
+{ icon: Globe2, value: `${stats.destinations}+`, label: 'Destinations' },
+{ icon: Headphones, value: stats.supportAvailability, label: 'Support' }
+]
 
 function About() {
 return (
@@ -64,8 +69,8 @@ return (
 
     <section className={styles.stats}>
       <div className={styles.statsInner}>
-        {stats.map((s, idx) => {
-          const Icon = ICONS[s.icon] || Award
+        {STAT_ITEMS.map((s, idx) => {
+          const Icon = s.icon
           return (
             <motion.div
               key={s.label}
