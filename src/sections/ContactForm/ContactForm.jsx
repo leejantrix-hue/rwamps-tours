@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, User, Globe2, MessageSquare, Tag } from 'lucide-react'
 import SectionHeading from '../../components/SectionHeading/SectionHeading.jsx'
-import { company } from '../../data/site.js'
+import { companyInfo as company } from '../../data/site.js'
 import styles from './ContactForm.module.scss'
 
 const SUBJECTS = ['Tour Inquiry', 'Custom Package', 'Group Booking', 'Visa Assistance', 'Other']
@@ -19,7 +19,6 @@ const update = (key) => (e) => setForm(prev => ({ ...prev, [key]: e.target.value
 const submit = async (e) => {
   e.preventDefault()
   setSubmitting(true)
-  // Simulate async send. In production replace with real endpoint or Formspree/EmailJS.
   await new Promise(r => setTimeout(r, 900))
   setSubmitting(false)
   setSent(true)
