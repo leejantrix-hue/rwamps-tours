@@ -6,10 +6,9 @@ import 'leaflet/dist/leaflet.css'
 import { MapPin, Star, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import SectionHeading from '../../components/SectionHeading/SectionHeading.jsx'
-import { popularAttractions } from '../../data/site.js'
+import { popularDestinations as popularAttractions } from '../../data/site.js'
 import styles from './PopularDestinations.module.scss'
 
-// Custom marker icon (avoids default broken Leaflet asset paths in Vite)
 const customIcon = L.divIcon({
 className: styles.customMarker,
 html: `<span></span>`,
@@ -51,9 +50,9 @@ return (
               <div className={styles.listBody}>
                 <h4>{attr.name}</h4>
                 <p>
-                  <MapPin size={12} /> {attr.city}, {attr.country}
+                  <MapPin size={12} /> {attr.address}
                 </p>
-                <span className={styles.priceTag}>From {attr.currency} {attr.price}</span>
+                <span className={styles.priceTag}>From {attr.price}</span>
               </div>
               <span className={styles.listRating}>
                 <Star size={12} fill="currentColor" /> {attr.rating.toFixed(1)}
@@ -64,8 +63,8 @@ return (
 
         <div className={styles.mapWrap}>
           <MapContainer
-            center={[active?.lat ?? 25.2, active?.lng ?? 55.3]}
-            zoom={5}
+            center={active?.coords ?? [25.2, 55.3]}
+            zoom={10}
             scrollWheelZoom={false}
             className={styles.map}
           >
@@ -76,14 +75,14 @@ return (
             {popularAttractions.map(attr => (
               <Marker
                 key={attr.id}
-                position={[attr.lat, attr.lng]}
+                position={attr.coords}
                 icon={customIcon}
                 eventHandlers={{ click: () => setActiveId(attr.id) }}
               >
                 <Popup>
                   <strong>{attr.name}</strong><br />
-                  {attr.city}, {attr.country}<br />
-                  From {attr.currency} {attr.price}
+                  {attr.address}<br />
+                  From {attr.price}
                 </Popup>
               </Marker>
             ))}
@@ -105,7 +104,7 @@ return (
                 <h4>{active.name}</h4>
                 <p>{active.description}</p>
                 <div className={styles.activeFoot}>
-                  <span><strong>{active.currency} {active.price}</strong> / person</span>
+                  <span><strong>{active.price}</strong></span>
                   <Link to="/tours" className={styles.activeCta}>
                     Book Tour <ArrowRight size={14} />
                   </Link>
