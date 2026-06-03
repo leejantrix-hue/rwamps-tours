@@ -1,0 +1,135 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.section {
+padding: $space-20 0;
+background: $color-white;
+}
+
+.inner {
+@include container;
+max-width: 880px;
+}
+
+.list {
+display: flex;
+flex-direction: column;
+gap: $space-3;
+}
+
+.item {
+background: $color-bg-light;
+border: 1.5px solid $color-border;
+border-radius: $radius-lg;
+overflow: hidden;
+transition: border-color $transition-fast, background $transition-fast, box-shadow $transition-fast;
+
+&:hover {
+  border-color: rgba(26, 188, 156, 0.4);
+}
+}
+
+.itemOpen {
+background: $color-white;
+border-color: $color-secondary;
+box-shadow: $shadow-md;
+
+.toggle {
+  background: linear-gradient(135deg, $color-secondary 0%, $color-secondary-dark 100%);
+  color: $color-white;
+  transform: rotate(45deg);
+}
+}
+
+.head {
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: $space-4;
+padding: $space-5 $space-6;
+background: transparent;
+border: none;
+text-align: left;
+cursor: pointer;
+font-family: inherit;
+
+@include max-sm { padding: $space-4; }
+}
+
+.headText {
+font-size: $font-size-md;
+font-weight: $font-weight-semibold;
+color: $color-primary;
+line-height: 1.4;
+
+@include max-sm { font-size: $font-size-sm; }
+}
+
+.toggle {
+width: 36px;
+height: 36px;
+border-radius: 50%;
+background: $color-white;
+color: $color-secondary;
+@include flex-center;
+flex-shrink: 0;
+transition: transform $transition-base, background $transition-base, color $transition-base;
+}
+
+.body {
+overflow: hidden;
+
+p {
+  padding: 0 $space-6 $space-5;
+  font-size: $font-size-sm;
+  line-height: 1.75;
+  color: $color-text-muted;
+  margin: 0;
+
+  @include max-sm { padding: 0 $space-4 $space-4; }
+}
+}
+
+.ctaBox {
+margin-top: $space-10;
+padding: $space-8;
+background: linear-gradient(135deg, $color-primary 0%, darken($color-primary, 5%) 100%);
+color: $color-white;
+border-radius: $radius-xl;
+display: flex;
+align-items: center;
+gap: $space-5;
+box-shadow: $shadow-lg;
+
+@include max-md { flex-direction: column; text-align: center; }
+
+> svg {
+  color: $color-secondary;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.08);
+  padding: $space-3;
+  width: 64px;
+  height: 64px;
+  border-radius: $radius-lg;
+}
+
+> div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+}
+
+h3 {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  margin: 0;
+}
+
+p {
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+}
