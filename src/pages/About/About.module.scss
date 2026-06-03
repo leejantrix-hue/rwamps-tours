@@ -1,0 +1,149 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.story {
+padding: $space-20 0;
+background: $color-white;
+}
+
+.storyInner {
+@include container;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: $space-12;
+align-items: center;
+
+@include max-lg {
+  grid-template-columns: 1fr;
+  gap: $space-8;
+}
+}
+
+.storyMedia {
+position: relative;
+border-radius: $radius-xl;
+overflow: hidden;
+box-shadow: $shadow-xl;
+
+img {
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  object-fit: cover;
+  display: block;
+}
+}
+
+.badge {
+position: absolute;
+bottom: $space-6;
+left: $space-6;
+background: $color-white;
+padding: $space-4 $space-5;
+border-radius: $radius-lg;
+display: flex;
+flex-direction: column;
+box-shadow: $shadow-lg;
+
+strong {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-extrabold;
+  color: $color-secondary;
+  line-height: 1;
+}
+
+span {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+}
+
+.storyBody {
+display: flex;
+flex-direction: column;
+gap: $space-4;
+
+p {
+  font-size: $font-size-md;
+  line-height: 1.8;
+  color: $color-text-muted;
+  margin: 0;
+}
+}
+
+.values {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: $space-5;
+margin-top: $space-6;
+
+@include max-sm { grid-template-columns: 1fr; }
+
+> div {
+  padding: $space-5;
+  background: $color-bg-light;
+  border-radius: $radius-lg;
+  border-left: 4px solid $color-secondary;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+
+  svg { color: $color-secondary; }
+
+  strong {
+    font-size: $font-size-md;
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+  }
+
+  p {
+    font-size: $font-size-sm;
+    line-height: 1.6;
+    color: $color-text-muted;
+    margin: 0;
+  }
+}
+}
+
+.stats {
+padding: $space-16 0;
+background: linear-gradient(135deg, $color-primary 0%, darken($color-primary, 10%) 100%);
+color: $color-white;
+}
+
+.statsInner {
+@include container;
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: $space-6;
+
+@include max-lg { grid-template-columns: repeat(2, 1fr); }
+@include max-sm { grid-template-columns: 1fr; }
+}
+
+.stat {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+gap: $space-2;
+padding: $space-4;
+
+svg { color: $color-secondary; }
+
+strong {
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-extrabold;
+  line-height: 1;
+}
+
+span {
+  font-size: $font-size-sm;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+}
